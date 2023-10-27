@@ -62,9 +62,18 @@
                     </span>
                 </h5>
             </div>
-            <div class=" col ">
+            <div class=" col d-wrap">
                 <h4> project tecnologies</h4>
-                <h6 class="text-danger"> coming soon</h6>
+
+                <h5>
+                    @forelse ($project->Tecnologies as $tecnology)
+                        <span class="badge me-2" style="background-color: {{ $tecnology->color }}">
+                            {{ $tecnology->label }}</li>
+                        </span>
+                    @empty
+                        -No Type known
+                    @endforelse
+                </h5>
             </div>
 
         </div>

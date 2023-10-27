@@ -25,6 +25,7 @@ class UpdateTypeRequest extends FormRequest
     {
 
         return [
+            // la parte $this->type->id serve per dire di ignorare il record in esame per questa regola
             'label' => ['required', 'string', 'max:20', 'unique:types,label,' . $this->type->id],
             'color' => ['required', 'regex:/^#([a-f0-9]{6}|[a-f0-9]{3})$/']
         ];

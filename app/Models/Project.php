@@ -24,4 +24,9 @@ class Project extends Model
         // belongsTo è un collegamento della relazione DEBOLE
         return $this->belongsTo(Type::class);
     }
+
+    public function tecnologies()
+    {
+        return $this->belongsToMany(Tecnology::class);
+    }
 }

@@ -21,11 +21,12 @@ class TecnologySeeder extends Seeder
     {
         $_tecnologies = ['HTML', 'CSS', 'SQL', 'JavaScript', 'PHP', 'GIT', 'Blade'];
 
-        foreach($_tecnologies as $_tecnology) {
+        foreach ($_tecnologies as $_tecnology) {
             $tecnology = new Tecnology();
-            $tecnology->label = $_tecnology; 
+            $tecnology->label = $_tecnology;
             $tecnology->color = $faker->hexColor();
 
             $tecnology->save();
+        }
     }
 }

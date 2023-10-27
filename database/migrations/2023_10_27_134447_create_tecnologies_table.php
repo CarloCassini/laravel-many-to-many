@@ -12,7 +12,7 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('tecnology', function (Blueprint $table) {
+        Schema::create('tecnologies', function (Blueprint $table) {
             $table->id();
             $table->string('label')->unique();
             $table->char('color', 7);
@@ -27,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('tecnology');
+        Schema::dropIfExists('tecnologies');
     }
 };

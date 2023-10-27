@@ -12,20 +12,17 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('progect_tecnology', function (Blueprint $table) {
+        Schema::create('project_tecnology', function (Blueprint $table) {
             $table->id();
 
-            // inserisco la FK di project
             $table->foreignId('project_id')
                 ->constrained()
                 ->cascadeOnDelete();
 
-            // inserisco il collegamento a tecnology
             $table->foreignId('tecnology_id')
                 ->constrained()
-                ->cascadeOnUpdate();
+                ->cascadeOnDelete();
 
-            // non mi serve il timestamp
             // $table->timestamps();
         });
     }
@@ -37,6 +34,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('progect_tecnology');
+        Schema::dropIfExists('project_tecnology');
     }
 };

@@ -12,7 +12,7 @@ class TecnologyController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function index()
     {
@@ -23,11 +23,11 @@ class TecnologyController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * *@return \Illuminate\Http\Response
      */
     public function create()
     {
-        //
+        return view('admin.tecnologies.create');
     }
 
     /**
@@ -38,7 +38,13 @@ class TecnologyController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validated();
+
+        $type = new Tecnology();
+        $type->fill($data);
+        $type->save();
+
+        return redirect()->route('admin.tecnologies.show', $type);
     }
 
     /**
@@ -49,7 +55,7 @@ class TecnologyController extends Controller
      */
     public function show(Tecnology $tecnology)
     {
-        //
+        return view("admin.tecnologies.show", compact("tecnology"));
     }
 
     /**
@@ -60,7 +66,7 @@ class TecnologyController extends Controller
      */
     public function edit(Tecnology $tecnology)
     {
-        //
+        return view("admin.tecnologies.edit", compact("tecnology"));
     }
 
     /**
@@ -72,7 +78,10 @@ class TecnologyController extends Controller
      */
     public function update(Request $request, Tecnology $tecnology)
     {
-        //
+        $data = $request->validated();
+        $tecnology->update($data);
+
+        return redirect()->route("admin.tecnologies.show", $tecnology);
     }
 
     /**
@@ -83,6 +92,7 @@ class TecnologyController extends Controller
      */
     public function destroy(Tecnology $tecnology)
     {
-        //
+        $tecnology->delete();
+        return redirect()->route("admin.tecnologies.index");
     }
 }

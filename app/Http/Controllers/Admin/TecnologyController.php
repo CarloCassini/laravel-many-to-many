@@ -5,7 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Tecnology;
 use Illuminate\Http\Request;
 
+// deve andare a perscare il controller dalla cartella controllers
 use App\Http\Controllers\Controller;
+
+// uso i validatori
+use App\Http\Requests\StoreTecnologyRequest;
+use App\Http\Requests\UpdateTecnologyRequest;
 
 class TecnologyController extends Controller
 {
@@ -36,7 +41,7 @@ class TecnologyController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTecnologyRequest $request)
     {
         $data = $request->validated();
 
@@ -76,7 +81,7 @@ class TecnologyController extends Controller
      * @param  \App\Models\Tecnology  $tecnology
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Tecnology $tecnology)
+    public function update(UpdateTecnologyRequest $request, Tecnology $tecnology)
     {
         $data = $request->validated();
         $tecnology->update($data);

@@ -19,6 +19,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
+                    <th scope="col">tecnologies</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Url</th>
                     <th scope="col">Description</th>
@@ -31,8 +32,21 @@
                     <tr>
                         <th scope="row">{{ $project->id }}</th>
                         <td>{{ $project->name }}</td>
-                        <td><span class="badge"
-                                style="background-color: {{ $project->Type?->color }}">{{ $project->Type?->label }}</span>
+                        {{-- gestione dei type --}}
+                        <td>
+                            <span class="badge" style="background-color: {{ $project->Type?->color }}">
+                                {{ $project->Type?->label }}
+                            </span>
+                        </td>
+                        {{-- gestione delle tecnologies --}}
+                        <td>
+                            @forelse ($project->tecnologies as $tecnology)
+                                <span class="badge" style="background-color: {{ $tecnology->color }}">
+                                    {{ $tecnology->label }}
+                                </span>
+                            @empty
+                                <span class="text-danger"> - </span>
+                            @endforelse
                         </td>
                         <td>{{ $project->slug }}</td>
                         <td>{{ $project->git_url }}</td>

@@ -15,6 +15,7 @@ use App\Http\Controllers\Controller;
 
 // per usare la classe STR
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 
 class ProjectController extends Controller
 {
@@ -59,6 +60,10 @@ class ProjectController extends Controller
 
         $project->slug = Str::slug($project->name);
         $project->save();
+
+        if (Arr::exists($data, 'tecnologies')) {
+            $project->tecnologies()->attach($data['tecnologies']);
+        }
 
         return redirect()->route('admin.projects.show', $project);
         //

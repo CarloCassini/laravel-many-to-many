@@ -28,6 +28,7 @@ class StoreProjectRequest extends FormRequest
             'git_url' => [],
             'description' => ['string'],
             'type_id' => ['nullable', 'exists:types,id'],
+            'tecnologies' => ['nullable', 'exists:tecnologies,id'],
         ];
     }
     public function messages()
@@ -45,6 +46,8 @@ class StoreProjectRequest extends FormRequest
 
             'type_id.exists' => 'il type inserito non è valido',
             'type_id.required' => 'itestdo',
+
+            'tecnologies:exists' => 'la tecnologià scelta non è tra quelle valide',
         ];
     }
 }

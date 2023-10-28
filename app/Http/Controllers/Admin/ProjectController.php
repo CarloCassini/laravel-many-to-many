@@ -7,6 +7,7 @@ use App\Http\Requests\StoreProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
+use App\Models\Tecnology;
 // use Illuminate\Http\Request;
 
 // deve andare a perscare il controller dalla cartella controllers
@@ -35,8 +36,9 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        $tecnologies = Tecnology::all();
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        return view('admin.projects.create', compact('types', 'tecnologies'));
         //
     }
 

@@ -88,6 +88,25 @@
                     </div>
                 @enderror
 
+                {{-- gestione delle checkbox x le tecnologie --}}
+                <label class="form-label">Tecnologie</label>
+
+                <div class="form-check @error('tecnologies') is-invalid @enderror p-0">
+                    @foreach ($tecnologies as $tecnology)
+                        <input type="checkbox" id="tecnology-{{ $tecnology->id }}" value="{{ $tecnology->id }}"
+                            name="tecnologies[]" class="form-check-control"
+                            @if (in_array($tecnology->id, old('tecnologies', []))) checked @endif>
+                        <label class="me-3" for="tecnology-{{ $tecnology->id }}">
+                            {{ $tecnology->label }}
+                        </label>
+                    @endforeach
+                </div>
+                @error('tecnologies')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+
                 {{-- bottone di invio form --}}
                 <button type="submit" class="btn btn-primary my-3">Salva</button>
             </form>

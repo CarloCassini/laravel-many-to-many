@@ -29,10 +29,16 @@ class UpdateProjectRequest extends FormRequest
                 'string',
                 'max:50',
                 // 'unique:projects'
+
             ],
+
             'git_url' => [],
+
             'description' => ['string'],
+
             'type_id' => ['nullable', 'exists:types,id'],
+
+            'tecnologies' => ['nullable', 'exists:tecnologies,id'],
         ];
     }
     public function messages()
@@ -50,6 +56,8 @@ class UpdateProjectRequest extends FormRequest
 
             'type_id.exists' => 'il type inserito non è valido',
             'type_id.required' => 'itestdo',
+
+            'tecnologies:exists' => 'la tecnologià scelta non è tra quelle valide',
         ];
     }
 }

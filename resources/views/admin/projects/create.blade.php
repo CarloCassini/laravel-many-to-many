@@ -29,86 +29,113 @@
 
         <section class="">
 
-            <form action="{{ route('admin.projects.store') }}" method="POST">
+            <form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
+                {{-- immagine --}}
+                <div>
+                    <label for="cover_image" class="form-label">immagine</label>
+                    <input type="file"
+                        class=" mb-2 form-control 
+                    @error('cover_image') is-invalid @enderror"
+                        id="cover_image" name="cover_image" value="{{ old('cover_image') }}" />
+                    @error('cover_image')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
                 {{-- name --}}
-                <label for="name" class="form-label">Name</label>
-                <input type="text" class="form-control 
-      @error('name')
+                <div>
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control 
+       @error('name')
         is-invalid
       @enderror"
-                    id="name" name="name" value="{{ old('name') }}" />
-                @error('name')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                        id="name" name="name" value="{{ old('name') }}" />
+                    @error('name')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 {{-- git_url --}}
-                <label for="git_url" class="form-label">Url repository</label>
-                <textarea class="form-control
+                <div>
+                    <label for="git_url" class="form-label">Url repository</label>
+                    <textarea class="form-control
       @error('git_url')
        is-invalid
       @enderror " id="git_url" name="git_url"
-                    rows="1">{{ old('git_url') }}</textarea>
-                @error('git_url')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                        rows="1">{{ old('git_url') }}</textarea>
+                    @error('git_url')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 {{-- description --}}
-                <label for="description" class="form-label">Description</label>
-                <textarea class="form-control 
+                <div>
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control 
       @error('description')
         is-invalid
       @enderror" id="description"
-                    name="description" rows="5">{{ old('description') }}</textarea>
-                @error('description')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                        name="description" rows="5">{{ old('description') }}</textarea>
+                    @error('description')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 {{-- select del Type --}}
-                <label for="type_id" class="form-label">Categoria</label>
-                <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
-                    <option value="">no Type</option>
+                <div>
+                    <label for="type_id" class="form-label">Categoria</label>
+                    <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
+                        <option value="">no Type</option>
 
-                    @foreach ($types as $type)
-                        <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>
-                            {{ $type->label }}
-                        </option>
-                    @endforeach
-                </select>
-                @error('type_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                        @foreach ($types as $type)
+                            <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>
+                                {{ $type->label }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('type_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 {{-- gestione delle checkbox x le tecnologie --}}
-                <label class="form-label">Tecnologie</label>
+                <div>
+                    <label class="form-label">Tecnologie</label>
 
-                <div class="form-check @error('tecnologies') is-invalid @enderror p-0">
-                    @foreach ($tecnologies as $tecnology)
-                        <input type="checkbox" id="tecnology-{{ $tecnology->id }}" value="{{ $tecnology->id }}"
-                            name="tecnologies[]" class="form-check-control"
-                            @if (in_array($tecnology->id, old('tecnologies', []))) checked @endif>
-                        <label class="me-3" for="tecnology-{{ $tecnology->id }}">
-                            {{ $tecnology->label }}
-                        </label>
-                    @endforeach
-                </div>
-                @error('tecnologies')
-                    <div class="invalid-feedback">
-                        {{ $message }}
+                    <div class="form-check @error('tecnologies') is-invalid @enderror p-0">
+                        @foreach ($tecnologies as $tecnology)
+                            <input type="checkbox" id="tecnology-{{ $tecnology->id }}" value="{{ $tecnology->id }}"
+                                name="tecnologies[]" class="form-check-control"
+                                @if (in_array($tecnology->id, old('tecnologies', []))) checked @endif>
+                            <label class="me-3" for="tecnology-{{ $tecnology->id }}">
+                                {{ $tecnology->label }}
+                            </label>
+                        @endforeach
                     </div>
-                @enderror
+                    @error('tecnologies')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
 
                 {{-- bottone di invio form --}}
-                <button type="submit" class="btn btn-primary my-3">Salva</button>
+                <div>
+
+                    <button type="submit" class="btn btn-primary my-3">Salva</button>
+                </div>
             </form>
     </div>
     </section>

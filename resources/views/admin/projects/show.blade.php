@@ -13,42 +13,52 @@
                 back to index
             </div>
         </a>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Slug</th>
-                    <th scope="col">Url</th>
-                    <th scope="col">Description</th>
-                    <th scope="col" class="text-center">Action</th>
-                </tr>
-            </thead>
+        <div class="row">
+            <div class="col-4">
+                <img class="img-fluid" src="{{ asset('/storage/' . $project->cover_image) }}" alt="">
+            </div>
+            <div class="col-8">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Slug</th>
+                            <th scope="col">Url</th>
+                            <th scope="col">Description</th>
+                            <th scope="col" class="text-center">Action</th>
+                        </tr>
+                    </thead>
 
-            <tbody>
-                <tr>
-                    <th scope="row">{{ $project->id }}</th>
-                    <td>{{ $project->name }}</td>
-                    <td>{{ $project->slug }}</td>
-                    <td>{{ $project->git_url }}</td>
-                    <td>{{ $project->description }}</td>
-                    {{-- da qui in poi i bottoni per le interazioni --}}
-                    <td>
-                        <div class="d-flex gap-2 my-1  justify-content-center align-items-center">
-                            <a href="{{ route('admin.projects.edit', $project) }}">
-                                <i class="fa-solid fa-file-pen"></i>
-                            </a>
-                            <!-- Button trigger modal -->
-                            <span class="delete-btn" data-bs-toggle="modal" data-bs-target="#ciccio{{ $project->id }}">
-                                <i class="fa-solid fa-trash"></i>
-                            </span>
-                        </div>
-                    </td>
+                    <tbody>
+                        <tr>
+                            <th scope="row">{{ $project->id }}</th>
+                            <td>{{ $project->name }}</td>
+                            <td>{{ $project->slug }}</td>
+                            <td>{{ $project->git_url }}</td>
+                            <td>{{ $project->description }}</td>
 
-                </tr>
-            </tbody>
+                            {{-- da qui in poi i bottoni per le interazioni --}}
+                            <td>
+                                <div class="d-flex gap-2 my-1  justify-content-center align-items-center">
+                                    <a href="{{ route('admin.projects.edit', $project) }}">
+                                        <i class="fa-solid fa-file-pen"></i>
+                                    </a>
+                                    <!-- Button trigger modal -->
+                                    <span class="delete-btn" data-bs-toggle="modal"
+                                        data-bs-target="#ciccio{{ $project->id }}">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </span>
+                                </div>
+                            </td>
 
-        </table>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
 
         {{-- spazio per le tecnologie/tipi --}}
         <div class="row gap-3">

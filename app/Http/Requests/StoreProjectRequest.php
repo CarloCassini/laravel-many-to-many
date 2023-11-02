@@ -29,6 +29,7 @@ class StoreProjectRequest extends FormRequest
             'description' => ['string'],
             'type_id' => ['nullable', 'exists:types,id'],
             'tecnologies' => ['nullable', 'exists:tecnologies,id'],
+            'cover_image' => ['nullable', 'mimes:jpg,jpeg,png', 'max:512'],
         ];
     }
     public function messages()
@@ -47,7 +48,10 @@ class StoreProjectRequest extends FormRequest
             'type_id.exists' => 'il type inserito non è valido',
             'type_id.required' => 'itestdo',
 
-            'tecnologies:exists' => 'la tecnologià scelta non è tra quelle valide',
+            'tecnologies.exists' => 'la tecnologià scelta non è tra quelle valide',
+
+            'cover_image.mimes' => 'l\' immagine deve essere jpg, jpeg o png',
+            'cover_image.max' => 'l\'immagine deve essere di max 512 kb',
         ];
     }
 }

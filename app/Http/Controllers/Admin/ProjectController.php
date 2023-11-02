@@ -17,6 +17,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
+// per usare lo storage delle immagini
+use Illuminate\Support\Facades\Storage;
+
 class ProjectController extends Controller
 {
     /**
@@ -57,10 +60,17 @@ class ProjectController extends Controller
 
         $project = new Project();
         $project->fill($data);
-
         $project->slug = Str::slug($project->name);
+
+        // archivio l'immagine arrivata dall'utente
+        if (Arr::exists($data, 'cover_image')) {
+            $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
+            $project->cover_image = $cover_image_path;
+        }
+
         $project->save();
 
+        // collego il post creato alla tabella delle tecnologie usate
         if (Arr::exists($data, 'tecnologies')) {
             $project->tecnologies()->attach($data['tecnologies']);
         }

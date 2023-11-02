@@ -8,7 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Project;
 use App\Models\Type;
 use App\Models\Tecnology;
-// use Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 // deve andare a perscare il controller dalla cartella controllers
 use App\Http\Controllers\Controller;
@@ -19,6 +19,7 @@ use Illuminate\Support\Arr;
 
 // per usare lo storage delle immagini
 use Illuminate\Support\Facades\Storage;
+
 
 class ProjectController extends Controller
 {
@@ -175,6 +176,19 @@ class ProjectController extends Controller
         $project->save();
 
         return redirect()->back();
+    }
+
+    public function publish(Project $project, Request $request)
+    {
+
+        $data = $request->all();
+        // dd($data);
+        $project->published = Arr::exists($data, 'published') ? '1' : null;
+
+        $project->save();
+
+        return redirect()->back();
+        // sono arrivato al minuto 00:32 della lezione
     }
 
 }

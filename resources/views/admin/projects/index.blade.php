@@ -20,6 +20,7 @@
                     <th scope="col">Name</th>
                     <th scope="col">Type</th>
                     <th scope="col">tecnologies</th>
+                    <th scope="col">published</th>
                     <th scope="col">Slug</th>
                     <th scope="col">Url</th>
                     <th scope="col">Description</th>
@@ -48,12 +49,28 @@
                                 <span class="text-danger"> - </span>
                             @endforelse
                         </td>
+                        <td>
+                            {{-- todo --}}
+                            <form action=" {{ route('admin.projects.publish', $project) }}" method="POST"
+                                id="form-published-{{ $project->id }}">
+                                @csrf
+                                @method('PATCH')
+
+                                <label for="" class="switch">
+                                    <input type="checkbox" @if ($project->published) checked @endif
+                                        id="check-published-{{ $project->id }}" Name="published">
+                                </label>
+                                <button>cambia</button>
+                            </form>
+                        </td>
                         <td>{{ $project->slug }}</td>
                         <td>{{ $project->git_url }}</td>
                         <td>{{ $project->description }}</td>
                         {{-- da qui in poi i bottoni per le interazioni --}}
                         <td>
-                            <div class="d-flex gap-2 my-1  justify-content-center align-items-center">
+                            <div
+                                class="d-flex
+                                        gap-2 my-1 justify-content-center align-items-center">
                                 <a href="{{ route('admin.projects.show', $project) }}">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
@@ -109,4 +126,19 @@
             </div>
         @endforeach
     </section>
+@endsection
+
+@section('scripts')
+    @foreach ($projects as $project)
+        <script>
+            console.log('{{ $project->id }}');
+            // todo
+            const checkPublished{{ $project->id }} = document.getElementById('check-published-{{ $project->id }}');
+            checkPublished{{ $project->id }}.addEventListener('click', function() {
+                const formPublished{{ $project->id }} = document.getElementById('form-published-{{ $project->id }}')
+                console.log(formPublished{{ $project->id }})
+                formPublished{{ $project->id }}.submit();
+            })
+        </script>
+    @endforeach
 @endsection

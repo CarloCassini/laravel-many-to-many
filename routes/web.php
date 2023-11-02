@@ -36,6 +36,8 @@ Route::middleware(['auth', 'verified'])
 
     // rotta per la cancellazione delle immagini da edit
     Route::delete('/projects/{project}/delete-image', [ProjectController::class, 'deleteImage'])->name('projects.delete-image');
+    // per inviare la mamin al click della checkbox
+    Route::patch('/projects/{project}/publish', [ProjectController::class, 'publish'])->name('projects.publish');
 
   });
 

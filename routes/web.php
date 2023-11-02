@@ -34,6 +34,9 @@ Route::middleware(['auth', 'verified'])
     Route::resource('types', TypeController::class);
     Route::resource('tecnologies', TecnologyController::class);
 
+    // rotta per la cancellazione delle immagini da edit
+    Route::delete('/projects/{project}/delete-image', [ProjectController::class, 'deleteImage'])->name('projects.delete-image');
+
   });
 
 require __DIR__ . '/auth.php';

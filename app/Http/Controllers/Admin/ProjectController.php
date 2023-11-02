@@ -167,4 +167,14 @@ class ProjectController extends Controller
         //
     }
 
+    // metodo per la cancellazione dell'immagine
+    public function deleteImage(Project $project)
+    {
+        Storage::delete($project->cover_image);
+        $project->cover_image = null;
+        $project->save();
+
+        return redirect()->back();
+    }
+
 }

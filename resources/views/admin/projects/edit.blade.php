@@ -42,13 +42,22 @@
                 {{-- immagine --}}
                 <div>
                     <div class="row">
-                        <div class="col-4">
+                        <div class="col-4 position-relative">
+                            @if ($project->cover_image)
+                                <span
+                                    class=" px-3 position-absolute bottom-0 start-50 translate-middle badge rounded-pill bg-danger"
+                                    id="delete-image-button">
+                                    <i class="fa-solid fa-trash"></i>
+                                    <span class="visually-hidden">delete image</span>
+                                </span>
+                            @endif
                             <img class="img-fluid"
                                 @if ($project->cover_image) src=" {{ asset('/storage/' . $project->cover_image) }}"    
                                  @else
                                  src="" @endif
                                 alt="" id="cover_image_prew">
                         </div>
+
                         <div class="col-8">
                             <label for="cover_image" class="form-label">immagine</label>
                             <input type="file"
@@ -183,6 +192,26 @@
 @endsection
 
 @section('scripts')
+    @if ($project->cover_image)
+        {{-- siccome non si può mettere un form dentro un form --}}
+        {{-- gestisco la cancellazione dell'immagine in un form a parte --}}
+        <form action="{{ route('admin.projects.delete-image', $project) }}" id="delete-image-form" method="POST">
+            @csrf
+            @method('DELETE')
+        </form>
+    @endif
+
+    @if ($project->cover_image)
+        <script>
+            const deleteImageButton = document.getElementById('delete-image-button');
+            const deleteImageForm = document.getElementById('delete-image-form');
+            deleteImageButton.addEventListener('click', function() {
+                deleteImageForm.submit();
+                // alert('ciccio');
+            })
+        </script>
+    @endif
+
     <script type="text/javascript">
         const inputFileElement = document.getElementById('cover_image');
         const coverImagePrew = document.getElementById('cover_image_prew');

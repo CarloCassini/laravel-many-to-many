@@ -43,8 +43,11 @@
                 <div>
                     <div class="row">
                         <div class="col-4">
-                            <img class="img-fluid" src="{{ asset('/storage/' . $project->cover_image) }}" alt=""
-                                id="cover_image_prew">
+                            <img class="img-fluid"
+                                @if ($project->cover_image) src=" {{ asset('/storage/' . $project->cover_image) }}"    
+                                 @else
+                                 src="" @endif
+                                alt="" id="cover_image_prew">
                         </div>
                         <div class="col-8">
                             <label for="cover_image" class="form-label">immagine</label>
@@ -183,6 +186,10 @@
     <script type="text/javascript">
         const inputFileElement = document.getElementById('cover_image');
         const coverImagePrew = document.getElementById('cover_image_prew');
+
+        if (!coverImagePrew.getAttribute('src') || coverImagePrew.getAttribute('src') == 'https://placehold.co/400') {
+            coverImagePrew.src = 'https://placehold.co/400';
+        }
 
         inputFileElement.addEventListener('change', function() {
             const [file] = this.files;

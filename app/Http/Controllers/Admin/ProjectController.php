@@ -145,7 +145,15 @@ class ProjectController extends Controller
     public function destroy(Project $project)
     {
         $project->tecnologies()->detach();
+
+        // gestisco la cancellazione dell'immagine
+        // contorllo se esiste un'immagine del post
+        if ($project->cover_image) {
+            Storage::delete($project->cover_image);
+        }
+
         $project->delete();
+
         return redirect()->route('admin.projects.index');
         //
     }

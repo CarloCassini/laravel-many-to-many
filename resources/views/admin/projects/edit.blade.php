@@ -35,9 +35,35 @@
 
 
         <section>
-            <form action="{{ route('admin.projects.update', $project) }}" method="POST">
+            <form action="{{ route('admin.projects.update', $project) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
+
+                {{-- immagine --}}
+                <div>
+                    <div class="row">
+                        <div class="col-4">
+                            <img class="img-fluid" src="{{ asset('/storage/' . $project->cover_image) }}" alt=""
+                                id="cover_image_prew">
+                        </div>
+                        <div class="col-8">
+                            <label for="cover_image" class="form-label">immagine</label>
+                            <input type="file"
+                                class=" mb-2 form-control 
+                                            @error('cover_image') is-invalid @enderror"
+                                id="cover_image" name="cover_image"
+                                value="{{ old('cover_image') ?? $project->cover_image }}" />
+                            @error('cover_image')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+
+                        </div>
+                    </div>
+                </div>
+
+
 
                 {{-- name --}}
                 <div>
@@ -151,4 +177,18 @@
         </div>
     </div>
     </section>
+@endsection
+
+@section('scripts')
+    <script type="text/javascript">
+        const inputFileElement = document.getElementById('cover_image');
+        const coverImagePrew = document.getElementById('cover_image_prew');
+
+        inputFileElement.addEventListener('change', function() {
+            const [file] = this.files;
+            coverImagePrew.src = URL.createObjectURL(file);
+
+            // alert('img cambiata');
+        })
+    </script>
 @endsection

@@ -63,7 +63,7 @@ class ProjectController extends Controller
         $project->slug = Str::slug($project->name);
 
         // archivio l'immagine arrivata dall'utente
-        if (Arr::exists($data, 'cover_image')) {
+        if ($request->hasFile('cover_image')) {
             $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
             $project->cover_image = $cover_image_path;
         }
@@ -121,8 +121,16 @@ class ProjectController extends Controller
         // ma gestito prima di update, evidentemente prende esattamente le righe toccate
         $project->slug = Str::slug($project->name);
 
+        $project->fill($data);
 
-        $project->update($data);
+        // gestione della cancellazione dell'immagine
+        if ($request->hasFile('cover_image')) {
+            if ($project->cover_image) {
+                Storage::delete($project->cover_image);
+            }
+            $cover_image_path = Storage::put('uploads/projects/cover_image', $data['cover_image']);
+            $project->cover_image = $cover_image_path;
+        }
 
         if (Arr::exists($data, 'tecnologies')) {
             $project->tecnologies()->sync($data['tecnologies']);
@@ -130,6 +138,7 @@ class ProjectController extends Controller
             $project->tecnologies()->detach();
         }
 
+        $project->save();
 
         return redirect()->route("admin.projects.show", $project);
         // dd($data);

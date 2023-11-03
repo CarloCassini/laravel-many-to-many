@@ -14,11 +14,16 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 // per usare la classe STR
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 
 // per usare lo storage delle immagini
 use Illuminate\Support\Facades\Storage;
+
+// per gestire l'invio della mail
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ProjectPublished;
 
 
 class ProjectController extends Controller
@@ -186,6 +191,15 @@ class ProjectController extends Controller
         $project->published = Arr::exists($data, 'published') ? '1' : null;
 
         $project->save();
+
+        // da aggiungere l'invio della mail
+
+        // per sapere chi è l'utente loggato
+        $user = Auth::user();
+
+        $published_project_mail = new ProjectPublished($project);
+        Mail::to($user->email)->send($published_project_mail);
+
 
         return redirect()->back();
         // sono arrivato al minuto 00:32 della lezione
